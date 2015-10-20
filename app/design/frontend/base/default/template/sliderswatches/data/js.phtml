@@ -1,3 +1,8 @@
-asdfasdfasdf
-
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/sliderswatches/owlcarousel/owl.carousel.min.js');?>"></script>
+<script>
+(function($) {
+  $(document).ready(function(){
+    $(".owl-carousel").owlCarousel();
+  });
+}(jQuery));
+</script>

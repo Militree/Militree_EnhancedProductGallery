@@ -20,26 +20,22 @@
     $_product = $this->getProduct();
     $_helper = $this->helper('catalog/output');
 ?>
-<div class="product-image flexslider">
-    <ul class="slides product-image-gallery">
-        <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
-            <?php if ($this->isGalleryImageVisible($_image)): ?>
-                <li>
-                    <img id="image-<?php echo $i; ?>"
-                         class="gallery-image lazyload visible"
-                         src="<?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->setQuality(16)->resize(720); ?>"
-                         data-srcset="
-                    <?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->setQuality(80)->resize(320); ?> 320w,
-                    <?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->setQuality(80)->resize(720); ?> 720w,
-                    <?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->setQuality(80)->resize(920); ?> 920w,
-                    <?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->setQuality(80)->resize(1400); ?> 1400w
-                         "
-                         data-sizes="auto"
-                         data-zoom-image="<?php echo  $this->getGalleryImageUrl($_image); ?>" />
-                 </li>
-            <?php endif; ?>
-        <?php $i++; endforeach; ?>
-    </ul>
+<div class="product-image owl-carousel">
+    <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
+        <?php if ($this->isGalleryImageVisible($_image)): ?>
+                <img id="image-<?php echo $i; ?>"
+                     class="gallery-image lazyload visible"
+                     src="<?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->setQuality(16)->resize(720); ?>"
+                     data-srcset="
+                <?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->setQuality(80)->resize(320); ?> 320w,
+                <?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->setQuality(80)->resize(720); ?> 720w,
+                <?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->setQuality(80)->resize(920); ?> 920w,
+                <?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->setQuality(80)->resize(1400); ?> 1400w
+                     "
+                     data-sizes="auto"
+                     data-zoom-image="<?php echo  $this->getGalleryImageUrl($_image); ?>" />
+        <?php endif; ?>
+    <?php $i++; endforeach; ?>
 </div>
 
 <?php echo $this->getChildHtml('after'); ?>
