@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout>
+  <PRODUCT_TYPE_configurable>
+    <reference name="before_body_end">
+      <block type="core/template" name="configrable.child.images" template="sliderswatches/data/json.phtml" />
+    </reference>
+  </PRODUCT_TYPE_configurable>
+</layout>

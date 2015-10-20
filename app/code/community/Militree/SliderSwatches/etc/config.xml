@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Militree_SliderSwatches>
+      <version>0.1.0</version>
+    </Militree_SliderSwatches>
+  </modules>
+  <frontend>
+    <layout>
+      <updates>
+        <sliderswatches>
+          <file>militree/sliderswatches.xml</file>
+        </sliderswatches>
+      </updates>
+    </layout>
+  </frontend>
+</config>

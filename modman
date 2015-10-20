@@ -1,0 +1,14 @@
+# app
+app/code/community/Militree/SliderSwatches
+
+# design
+app/design/frontend/base/default/layout/militree/sliderswatches.xml
+app/design/frontend/base/default/template/sliderswatches
+
+# etc
+app/etc/modules/Militree_SliderSwatches.xml
+
+# skin
+skin/frontend/base/default/css/sliderswatches
+skin/frontend/base/default/images/sliderswatches
+skin/frontend/base/default/js/sliderswatches
