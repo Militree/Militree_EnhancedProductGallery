@@ -1,8 +1,23 @@
-<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/sliderswatches/owlcarousel/owl.carousel.min.js');?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/sliderswatches/owlcarousel/jquery.flexslider-min.js');?>"></script>
 <script>
 (function($) {
-  $(document).ready(function(){
-    $(".owl-carousel").owlCarousel();
-  });
+  var slider = {
+    init: function() {
+      $('.flexslider').flexslider({
+        animation: "slide",
+        controlNav: false,
+        animationLoop: false,
+        slideshow: false
+      });
+    }
+  },
+  setSlides: function() {
+
+  },
+  zoom: function() {
+
+  }
 }(jQuery));
+
+slider.init();
 </script>
