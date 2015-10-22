@@ -20,14 +20,14 @@
     $_product = $this->getProduct();
     $_helper = $this->helper('catalog/output');
 ?>
-hello, this is mine.
-<div class="product-image flexslider">
+
+<div id="flexslider" class="flexslider">
     <ul class="slides product-image-gallery">
         <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
             <?php if ($this->isGalleryImageVisible($_image)): ?>
                 <li>
                     <img id="image-<?php echo $i; ?>"
-                         class="gallery-image lazyload visible"
+                         class="gallery-image lazyload"
                          src="<?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->setQuality(16)->resize(720); ?>"
                          data-srcset="
                     <?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->setQuality(80)->resize(320); ?> 320w,

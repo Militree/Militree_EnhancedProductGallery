@@ -14,4 +14,11 @@
       </updates>
     </layout>
   </frontend>
+  <global>
+    <blocks>
+      <militree_sliderswatches>
+        <class>Militree_SliderSwatches_Block</class>
+      </militree_sliderswatches>
+    </blocks>
+  </global>
 </config>

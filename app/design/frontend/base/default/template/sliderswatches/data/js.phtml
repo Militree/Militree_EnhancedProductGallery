@@ -1,23 +1,77 @@
 <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/sliderswatches/owlcarousel/jquery.flexslider-min.js');?>"></script>
 <script>
-(function($) {
-  var slider = {
-    init: function() {
-      $('.flexslider').flexslider({
-        animation: "slide",
-        controlNav: false,
-        animationLoop: false,
-        slideshow: false
-      });
-    }
+var ProductMediaSlider = {
+  swatchOptionId: null,
+  flexsliderContainer: $j('#flexslider'),
+
+  init: function() {
+    ProductMediaSlider.swatchLink = $j('.swatch-link');
+
+    ProductMediaSlider.bindSwatches();
+    ProductMediaSlider.initFlexslider();
+  },
+  initFlexslider: function() {
+    ProductMediaSlider.flexsliderContainer.removeData("flexslider");
+    ProductMediaSlider.flexsliderContainer.flexslider({
+      animation: "slide",
+      controlNav: false,
+      slideshow: false
+    });
+  },
+  bindSwatches: function() {
+    ProductMediaSlider.swatchLink.on('click', function() {
+      ProductMediaSlider.swatchOptionId = $j(this).attr('id').slice(6);
+      ProductMediaSlider.setSlides();
+    });
   },
   setSlides: function() {
+    var output = ProductMediaSlider.prepareSlidesHtml();
+    ProductMediaSlider.smartReplace(ProductMediaSlider.flexsliderContainer, output);
+    ProductMediaSlider.initFlexslider();
+  },
+  prepareSlidesHtml: function() {
+    var images = ProductMediaSlider.getSlidesSrc();
+    var output = '<ul class="slides product-image-gallery">';
+    $j.each(images, function(index, value) {
+      output += '<li><img id="image-' + value.img_id +'" src="' + value.src +'" class="gallery-image lazyautosizes lazyloaded" data-zoom-image="' + value.zoom + '"></li>';
 
+    });
+    output += '</ul>';
+    return output;
+  },
+  getSlidesSrc: function() {
+    return AssociatedProductImages.products.filter(function(product) {
+      if (product.swatch === ProductMediaSlider.swatchOptionId) {
+        return product;
+      }
+    })[0].images;
+  },
+  smartReplace: function(block, replacement) {
+    block.wrapInner("<div class='death-row'></div>");
+    block.append(replacement);
+    $j('.death-row').remove();
   },
   zoom: function() {
+    if (!isLargeImage || isMobile) {
+      return;
+    }
+
+    
+
+  },
+  isLargeImage: function(image) {
+    return true;
+    // var image = new Image();
+    // image.src = image.attr("src");
+    // console.log('width: ' + image.naturalWidth + ' and height: ' + image.naturalHeight);
+  },
+  getNaturalImageSize: function(image) {
+
+  },
+  getCurrentImageSize: function(image) {
 
   }
-}(jQuery));
+}
 
-slider.init();
+ProductMediaSlider.init();
 </script>
