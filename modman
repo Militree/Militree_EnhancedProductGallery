@@ -8,6 +8,9 @@ app/design/frontend/base/default/template/sliderswatches
 # etc
 app/etc/modules/Militree_SliderSwatches.xml
 
+# js
+js/jquery/jquery-2.1.4.min.js
+
 # skin
 skin/frontend/base/default/css/sliderswatches
 skin/frontend/base/default/images/sliderswatches
