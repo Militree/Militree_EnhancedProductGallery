@@ -24,7 +24,13 @@
       ProductMediaSlider.flexsliderContainer.flexslider({
         animation: "slide",
         controlNav: false,
-        slideshow: false
+        slideshow: false,
+        before: function() {
+          ProductMediaSlider.destroyZoom();
+        },
+        after: function() {
+          ProductMediaSlider.createZoom($('.flex-active-slide img'));
+        },
       });
     },
 
@@ -86,21 +92,12 @@
       block.append(replacement);
       $('.death-row').remove();
     },
-
     /**
-     * [zoom description]
-     * @return {[type]} [description]
+     * [createZoom description]
+     * @param  {[type]} image [description]
+     * @return {[type]}       [description]
      */
-    zoom: function() {
-      // if (!isLargeImage || isMobile) {
-      //   return;
-      // }
-    },
-
     createZoom: function(image) {
-        // Destroy since zoom shouldn't be enabled under certain conditions
-        ProductMediaManager.destroyZoom();
-
         if(
             // Don't use zoom on devices where touch has been used
             PointerManager.getPointer() == PointerManager.TOUCH_POINTER_TYPE
@@ -112,17 +109,16 @@
 
         if (ProductMediaSlider.isLargeImage(image)) {
           image.parents('.product-image').addClass('zoom-available');
-
         } else {
           image.parents('.product-image').removeClass('zoom-available');
-
+          return;
         }
         image.elevateZoom();
     },
     destroyZoom: function() {
-
+        $('.zoomContainer').remove();
+        $('.product-image-gallery .gallery-image').removeData('elevateZoom');
     },
-
     /**
      * [isLargeImage description]
      * @param  {[type]}  image [description]
@@ -143,6 +139,4 @@
 }(jQuery));
 
 ProductMediaSlider.init();
-$j('.flex-active-slide').click(ProductMediaSlider.isLargeImage($('.flex-active-slide img')));
-
 </script>

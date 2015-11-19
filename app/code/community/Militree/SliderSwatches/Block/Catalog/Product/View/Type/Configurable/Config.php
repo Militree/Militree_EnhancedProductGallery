@@ -7,7 +7,7 @@ class Militree_SliderSwatches_Block_Catalog_Product_View_Type_Configurable_Confi
         $associatedProductImages = [
             'products' => []
         ];
-        
+
         $allowedProducts = $this->getAllowProducts();
         $productIndex = 0;
         foreach ($allowedProducts as $_product) {
@@ -15,7 +15,7 @@ class Militree_SliderSwatches_Block_Catalog_Product_View_Type_Configurable_Confi
 
             array_push($associatedProductImages['products'], [
                 'id'     => $id,
-                'swatch' => $_product->getColorSwatch(),
+                'swatch' => $_product->getColorConfigurable(),
                 'images' => []
             ]);
 
