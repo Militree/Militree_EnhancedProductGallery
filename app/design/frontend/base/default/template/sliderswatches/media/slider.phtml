@@ -21,7 +21,7 @@
     $_helper = $this->helper('catalog/output');
 ?>
 
-<div id="flexslider" class="flexslider">
+<div id="flexslider" class="flexslider" tabindex="0">
     <ul class="slides product-image-gallery">
         <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
             <?php if ($this->isGalleryImageVisible($_image)): ?>
