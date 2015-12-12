@@ -9,6 +9,7 @@
     KEY_UP: 38,
     KEY_RIGHT: 39,
     KEY_DOWN: 40,
+    KEY_ESC: 27,
 
     /**
      * [init description]
@@ -148,9 +149,10 @@
     },
     keyboardZoom: function(e, image) {
       ElevateZoom = image.data('elevateZoom');
-      // ElevateZoom.startZoom();
       ElevateZoom.setPosition(ProductMediaSlider.calcCenterPosition(ElevateZoom, image));
       image.mouseover();
+      ProductMediaSlider.flexsliderContainer.data('flexslider').animating = true;
+
 
       $(document).on("keydown", function(e) {
         if (e.keyCode == ProductMediaSlider.KEY_UP) {
@@ -163,6 +165,8 @@
           ProductMediaSlider.handleKeyboardPan(ElevateZoom, image, 1, 0);
         } else if (e.keyCode == ProductMediaSlider.KEY_ESC) {
           if (ElevateZoom.isLensActive) {
+            image.mouseleave();
+            ProductMediaSlider.flexsliderContainer.data('flexslider').animating = false;
             ElevateZoom.setElements("hide");
             ElevateZoom.keyFocus = false;
           } else {
@@ -172,9 +176,9 @@
         } else {
           // Skip it, not interesting.  We don't want to cancel.
           return;
-          // If we didn't bail, it means we handled the event.
-          // Prevent it from doing other silly things like scrolling the page.
         }
+        // If we didn't bail, it means we handled the event.
+        // Prevent it from doing other silly things like scrolling the page.
         e.preventDefault();
       });
     },
