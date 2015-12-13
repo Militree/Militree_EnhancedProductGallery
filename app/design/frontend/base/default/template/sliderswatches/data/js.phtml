@@ -152,24 +152,20 @@
     },
     toggleKeyboardSlide: function(state) {
       if (state === 'off') {
-        $(document).unbind(keyboardSlide());
+        $(document).off('keyup.keyboardSlide');
         return;
       }
 
-      $(document).bind(keyboardSlide());
-
-      function keyboardSlide() {
-        if (ProductMediaSlider.flexsliderContainer.length === 1) {
-          $(document).bind('keyup', function bindHandler(event) {
-            var keycode = event.keyCode;
-            var slider = ProductMediaSlider.flexsliderContainer.data('flexslider');
-            if (!slider.animating && (keycode === 39 || keycode === 37)) {
-              var target = (keycode === 39) ? slider.getTarget('next') :
-                           (keycode === 37) ? slider.getTarget('prev') : false;
-              slider.flexAnimate(target, slider.vars.pauseOnAction);
-            }
-          });
-        }
+      if (ProductMediaSlider.flexsliderContainer.length === 1) {
+        $(document).on('keyup.keyboardSlide', function bindHandler(event) {
+          var keycode = event.keyCode;
+          var slider = ProductMediaSlider.flexsliderContainer.data('flexslider');
+          if (!slider.animating && (keycode === 39 || keycode === 37)) {
+            var target = (keycode === 39) ? slider.getTarget('next') :
+                         (keycode === 37) ? slider.getTarget('prev') : false;
+            slider.flexAnimate(target, slider.vars.pauseOnAction);
+          }
+        });
       }
     },
     keyboardZoom: function(e, image) {
