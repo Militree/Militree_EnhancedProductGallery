@@ -1,6 +1,8 @@
 Slider Swatches
 ================
 
+This software is early in development, and is presented as-is.
+
 Requirements
 ------------
 
