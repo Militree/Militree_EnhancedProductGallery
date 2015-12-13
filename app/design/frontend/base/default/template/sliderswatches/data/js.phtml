@@ -215,7 +215,7 @@
       ElevateZoom.currentLoc.clientY += deltaY * ProductMediaSlider.STEP_SIZE;
       ElevateZoom.currentLoc.pageX += deltaX * ProductMediaSlider.STEP_SIZE;
       ElevateZoom.currentLoc.pageY += deltaY * ProductMediaSlider.STEP_SIZE;
-      // ElevateZoom.currentLoc = ElevateZoom.clampPositionToBounds(ElevateZoom.currentLoc);
+      ElevateZoom.currentLoc = ProductMediaSlider.clampPositionToBounds(ElevateZoom, image, ElevateZoom.currentLoc);
 
       ElevateZoom.setPosition(ElevateZoom.currentLoc);
       ElevateZoom.lastX = ElevateZoom.currentLoc.clientX;
@@ -261,6 +261,25 @@
       }
 
       return bounds;
+    },
+    clampPositionToBounds: function(ElevateZoom, image, pos) {
+      // Recalculate the element size and pos.
+      ProductMediaSlider.recalcElemPos(ElevateZoom, image);
+
+      var bounds = ProductMediaSlider.calcPositionBounds(ElevateZoom, image);
+      if (pos.pageX < bounds.left + ElevateZoom.nzOffset.left) {
+        pos.pageX = bounds.left + ElevateZoom.nzOffset.left;
+      } else if (pos.pageX > bounds.right + ElevateZoom.nzOffset.left) {
+        pos.pageX = bounds.right + ElevateZoom.nzOffset.left;
+      }
+
+      if (pos.pageY < bounds.top + ElevateZoom.nzOffset.top) {
+        pos.pageY = bounds.top + ElevateZoom.nzOffset.top;
+      } else if (pos.pageY > bounds.bottom + ElevateZoom.nzOffset.top) {
+        pos.pageY = bounds.bottom + ElevateZoom.nzOffset.top;
+      }
+
+      return pos;
     }
   }
 
