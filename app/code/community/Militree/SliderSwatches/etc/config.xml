@@ -2,7 +2,7 @@
 <config>
   <modules>
     <Militree_SliderSwatches>
-      <version>0.1.0</version>
+      <version>1.0.0</version>
     </Militree_SliderSwatches>
   </modules>
   <frontend>
