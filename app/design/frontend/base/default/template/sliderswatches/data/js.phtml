@@ -10,7 +10,7 @@
     KEY_RIGHT: 39,
     KEY_DOWN: 40,
     KEY_ESC: 27,
-    bound: false,
+    keyboardZoomBound: false,
 
     /**
      * [init description]
@@ -145,7 +145,7 @@
     },
     bindKeyboardZoom: function(image) {
       $('#flexslider').on("keydown", function(e) {
-        if (e.keyCode == ProductMediaSlider.KEY_ENTER && ProductMediaSlider.bound === false) {
+        if (e.keyCode == ProductMediaSlider.KEY_ENTER && ProductMediaSlider.keyboardZoomBound === false) {
           ProductMediaSlider.keyboardZoom(e, image);
         }
       });
@@ -173,7 +173,7 @@
       }
     },
     keyboardZoom: function(e, image) {
-      ProductMediaSlider.bound = true;
+      ProductMediaSlider.keyboardZoomBound = true;
       ElevateZoom = image.data('elevateZoom');
       ElevateZoom.setPosition(ProductMediaSlider.calcCenterPosition(ElevateZoom, image));
       image.mouseover();
@@ -195,7 +195,7 @@
             ProductMediaSlider.toggleKeyboardSlide('on');
             ElevateZoom.setElements("hide");
             ElevateZoom.keyFocus = false;
-            ProductMediaSlider.bound = false;
+            ProductMediaSlider.keyboardZoomBound = false;
           } else {
             // Don't cancel the event.
             return;
