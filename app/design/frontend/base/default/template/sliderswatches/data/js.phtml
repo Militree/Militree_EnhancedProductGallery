@@ -1,8 +1,7 @@
 <script>
 (function($) {
   var ProductMediaSlider = {
-    swatchOptionId: null,
-    flexsliderContainer: $('#flexslider'),
+    // Delcare Constants
     STEP_SIZE: 5,
     KEY_ENTER: 13,
     KEY_LEFT: 37,
@@ -10,11 +9,15 @@
     KEY_RIGHT: 39,
     KEY_DOWN: 40,
     KEY_ESC: 27,
+
+    // Declare Variables
+    swatchOptionId: null,
+    ElevateZoom: null,
+    flexsliderContainer: $('#flexslider'),
     keyboardZoomBound: false,
 
     /**
-     * [init description]
-     * @return {[type]} [description]
+     * The path of the righteous method is beset on all sides by the inequities of the selfish and the tyranny of careless developers. Blessed is he who, in the name of good documentation and best practices, shepherds the uglified through the valley of spaghetti code, for he is truly his sibling element's keeper and the finder of lost childNodes. And I will blame down upon thee with great vengeance and furious PR comments those who attempt to recur and delete My sibling elements. And you will know I am the LORD when I initialize My functionality upon you.
      */
     init: function() {
       ProductMediaSlider.swatchLink = $('.swatch-link');
@@ -25,8 +28,7 @@
     },
 
     /**
-     * [initFlexslider description]
-     * @return {[type]} [description]
+     * Initialize the Flexslider, which options pre-setup.
      */
     initFlexslider: function() {
       ProductMediaSlider.flexsliderContainer.removeData("flexslider");
@@ -45,8 +47,7 @@
     },
 
     /**
-     * [bindSwatches description]
-     * @return {[type]} [description]
+     * Bind the swatch switching functionality
      */
     bindSwatches: function() {
       ProductMediaSlider.swatchLink.on('click', function() {
@@ -56,7 +57,7 @@
     },
 
     /**
-     * [setSlides description]
+     * Change out the sliders based on the collection in the JSON
      */
     setSlides: function() {
       var output = ProductMediaSlider.prepareSlidesHtml();
@@ -65,8 +66,8 @@
     },
 
     /**
-     * [prepareSlidesHtml description]
-     * @return {[type]} [description]
+     * Prepare the html needed to render the new slides
+     * @return {html} The undordered list containing the new slides
      */
     prepareSlidesHtml: function() {
       var images = ProductMediaSlider.getSlidesSrc();
@@ -81,7 +82,7 @@
 
     /**
      * Get the url source of all the slides for the selected color
-     * @return {[type]} [description]
+     * @return [object] product
      */
     getSlidesSrc: function() {
       return AssociatedProductImages.products.filter(function(product) {
@@ -92,20 +93,20 @@
     },
 
     /**
-     * [smartReplace description]
-     * @param  {[type]} block       [description]
-     * @param  {[type]} replacement [description]
-     * @return {[type]}             [description]
+     * Replace image by appending it, then removing the old one.
+     * @param block       old block, the one being removed.
+     * @param replacement new block
      */
     smartReplace: function(block, replacement) {
       block.wrapInner("<div class='death-row'></div>");
       block.append(replacement);
       $('.death-row').remove();
     },
+
     /**
-     * [createZoom description]
-     * @param  {[type]} image [description]
-     * @return {[type]}       [description]
+     * Create the zoom functionality, using Magento's default
+     * elevateZoom functionality.
+     * @param  {jQuery object} image current image, for zoom to act on
      */
     createZoom: function(image) {
         if(
@@ -126,14 +127,19 @@
         image.elevateZoom();
         ProductMediaSlider.bindKeyboardZoom(image);
     },
+
+    /**
+     * Remove the zoom functionatliy
+     */
     destroyZoom: function() {
         $('.zoomContainer').remove();
         $('.product-image-gallery .gallery-image').removeData('elevateZoom');
     },
+
     /**
-     * [isLargeImage description]
-     * @param  {[type]}  image [description]
-     * @return {Boolean}       [description]
+     * Check image to see if it is large enough to require zoom.
+     * @param  {jQuery Object} image Image to check
+     * @return {Boolean}
      */
     isLargeImage: function(image) {
       if(image.length !== 1){
@@ -143,6 +149,12 @@
       var heightDiff = image[0].naturalHeight - image.height(); 
       return (widthDiff >= 0) || (heightDiff >= 0);
     },
+
+    /**
+     * Rewrite Flexslider's keyboard arrow functionality so that we can access
+     * it and turn it off when keyboard zooming.
+     * @param  {jQuery Object} image image with felxslider functionality
+     */
     bindKeyboardZoom: function(image) {
       $('#flexslider').on("keydown", function(e) {
         if (e.keyCode == ProductMediaSlider.KEY_ENTER && ProductMediaSlider.keyboardZoomBound === false) {
@@ -150,6 +162,12 @@
         }
       });
     },
+
+    /**
+     * Rewrite Flexslider's keyboard arrow functionality so that we can access
+     * it and turn it off when keyboard zooming.
+     * @param  {jQuery Object} image image with felxslider functionality
+     */
     toggleKeyboardSlide: function(state) {
       if (state === 'off') {
         $(document).off('keyup.keyboardSlide');
@@ -168,6 +186,13 @@
         });
       }
     },
+
+    /**
+     * Allow the keyboard to control the zoom box when tabbed to the
+     * flexslider image and activating.
+     * @param  {event}  e      Event from hanlder
+     * @param  {jQuery Object} image       image with zoom functionality
+     */
     keyboardZoom: function(e, image) {
       ProductMediaSlider.keyboardZoomBound = true;
       ElevateZoom = image.data('elevateZoom');
@@ -205,6 +230,14 @@
         e.preventDefault();
       });
     },
+
+    /**
+     * Handle the change in position by clicking the arrow and setting the position
+     * @param  {object}         ElevateZoom ElevateZoom object
+     * @param  {jQuery Object}  image       image with zoom functionality
+     * @param  {int} deltaX     change in X axis
+     * @param  {int} deltaY     change in Y axis
+     */
     handleKeyboardPan: function(ElevateZoom, image, deltaX, deltaY) {
       // Great, we have a winner.  Now let's move the viewport.
       if (!ElevateZoom.currentLoc) {
@@ -216,18 +249,28 @@
       ElevateZoom.currentLoc.pageX += deltaX * ProductMediaSlider.STEP_SIZE;
       ElevateZoom.currentLoc.pageY += deltaY * ProductMediaSlider.STEP_SIZE;
       ElevateZoom.currentLoc = ProductMediaSlider.clampPositionToBounds(ElevateZoom, image, ElevateZoom.currentLoc);
-
       ElevateZoom.setPosition(ElevateZoom.currentLoc);
       ElevateZoom.lastX = ElevateZoom.currentLoc.clientX;
       ElevateZoom.lastY = ElevateZoom.currentLoc.clientY;
     },
 
+    /**
+     * Recalulate the position
+     * @param  {object}         ElevateZoom ElevateZoom object
+     * @param  {jQuery Object}  image       image with zoom functionality
+     */
     recalcElemPos: function(ElevateZoom, image) {
       // We do this often in case other page elements change.
       ElevateZoom.nzWidth = image.width();
       ElevateZoom.nzHeight = image.height();
       ElevateZoom.nzOffset = image.offset();
     },
+
+    /**
+     * Recalulate the center of the image
+     * @param  {object}         ElevateZoom ElevateZoom object
+     * @param  {jQuery Object}  image       image with zoom functionality
+     */
     calcCenterPosition: function(ElevateZoom, image) {
       // Recalculate the element size and pos.
       ProductMediaSlider.recalcElemPos(ElevateZoom, image);
@@ -242,6 +285,13 @@
       pos.clientY = pos.pageY;
       return pos;
     },
+
+    /**
+     * Calculate the boundaries of the image
+     * @param  {object}         ElevateZoom ElevateZoom object
+     * @param  {jQuery Object}  image       image with zoom functionality
+     * @return {object}         bounds      boundaries of the image
+     */
     calcPositionBounds: function(ElevateZoom, image) {
       var bounds = {};
 
@@ -262,6 +312,14 @@
 
       return bounds;
     },
+
+    /**
+     * Recalulate the center of the image
+     * @param  {object}         ElevateZoom ElevateZoom object
+     * @param  {jQuery Object}  image       image with zoom functionality
+     * @param  {jQuery Object}  pos         position of the image
+     * @return {pos}            pos         position of the image
+     */
     clampPositionToBounds: function(ElevateZoom, image, pos) {
       // Recalculate the element size and pos.
       ProductMediaSlider.recalcElemPos(ElevateZoom, image);
