@@ -21,6 +21,7 @@
 
       ProductMediaSlider.bindSwatches();
       ProductMediaSlider.initFlexslider();
+      ProductMediaSlider.toggleKeyboardSlide('on');
     },
 
     /**
@@ -33,6 +34,7 @@
         animation: "slide",
         controlNav: false,
         slideshow: false,
+        keyboard: false, // Since keyboard is a private flexslider method, we'll use our own.
         before: function() {
           ProductMediaSlider.destroyZoom();
         },
@@ -148,12 +150,34 @@
         }
       });
     },
+    toggleKeyboardSlide: function(state) {
+      if (state === 'off') {
+        $(document).unbind(keyboardSlide());
+        return;
+      }
+
+      $(document).bind(keyboardSlide());
+
+      function keyboardSlide() {
+        if (ProductMediaSlider.flexsliderContainer.length === 1) {
+          $(document).bind('keyup', function bindHandler(event) {
+            var keycode = event.keyCode;
+            var slider = ProductMediaSlider.flexsliderContainer.data('flexslider');
+            if (!slider.animating && (keycode === 39 || keycode === 37)) {
+              var target = (keycode === 39) ? slider.getTarget('next') :
+                           (keycode === 37) ? slider.getTarget('prev') : false;
+              slider.flexAnimate(target, slider.vars.pauseOnAction);
+            }
+          });
+        }
+      }
+    },
     keyboardZoom: function(e, image) {
       ProductMediaSlider.bound = true;
       ElevateZoom = image.data('elevateZoom');
       ElevateZoom.setPosition(ProductMediaSlider.calcCenterPosition(ElevateZoom, image));
       image.mouseover();
-      ProductMediaSlider.flexsliderContainer.data('flexslider').animating = true;
+      ProductMediaSlider.toggleKeyboardSlide('off');
 
 
       $(document).on("keydown", function(e) {
@@ -168,7 +192,7 @@
         } else if (e.keyCode == ProductMediaSlider.KEY_ESC) {
           if (ElevateZoom.isLensActive) {
             image.mouseleave();
-            ProductMediaSlider.flexsliderContainer.data('flexslider').animating = false;
+            ProductMediaSlider.toggleKeyboardSlide('on');
             ElevateZoom.setElements("hide");
             ElevateZoom.keyFocus = false;
             ProductMediaSlider.bound = false;
