@@ -2,9 +2,6 @@
 <layout>
   <catalog_product_view>
     <reference name="head">
-<!--       <action method="addJs">
-        <script>jquery/jquery-2.1.4.min.js</script>
-      </action> -->
       <action method="addItem">
         <type>skin_js</type>
         <name>js/sliderswatches/sliders/jquery.flexslider-min.js</name>
