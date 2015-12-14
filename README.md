@@ -3,6 +3,8 @@ Slider Swatches
 
 This software is early in development, and is presented as-is.
 
+Warning: The name of this module is likely to change soon.
+
 Requirements
 ------------
 
