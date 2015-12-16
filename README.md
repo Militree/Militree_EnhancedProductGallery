@@ -19,7 +19,7 @@ Features
 - Use a Flexslider based image slider for product images on the PDP
 - When viewing a configurable swatch, the slider collection will repopulate with all the children product's images when the corresponding color swatch is selected.
 - Supports Magento's elevateZoom
-- For accessability, tabbing to the image and pressing enter will let the use move the zoom lens with the keyboard. Pressing escape will return the fuctionality to flexlider.
+- For accessibility, tabbing to the image and pressing enter will let the user move the zoom lens with the keyboard. Pressing escape will return the fuctionality to flexlider.
 
 Note: There are currently no thumbnails. This ia a TODO.
 
