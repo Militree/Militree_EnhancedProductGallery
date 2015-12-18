@@ -1,9 +1,7 @@
-Slider Swatches
+Enhanced Product Gallery
 ================
 
 This software is early in development, and is presented as-is.
-
-Warning: The name of this module is likely to change soon.
 
 Requirements
 ------------
@@ -32,7 +30,7 @@ You can install this module using [Colin Mollenhour's](https://github.com/colinm
 
 ```bash
 $ modman init
-$ modman clone https://github.com/Militree/Militree_SliderSwatches.git
+$ modman clone https://github.com/Militree/Militree_EnhancedProductGallery.git
 ```
 
 Contribution

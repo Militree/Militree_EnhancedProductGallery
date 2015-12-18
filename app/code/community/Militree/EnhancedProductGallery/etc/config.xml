@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Militree_EnhancedProductGallery>
+      <version>1.0.0</version>
+    </Militree_EnhancedProductGallery>
+  </modules>
+  <frontend>
+    <layout>
+      <updates>
+        <enhancedproductgallery>
+          <file>enhancedproductgallery/enhancedproductgallery.xml</file>
+        </enhancedproductgallery>
+      </updates>
+    </layout>
+  </frontend>
+  <global>
+    <blocks>
+      <militree_enhancedproductgallery>
+        <class>Militree_EnhancedProductGallery_Block</class>
+      </militree_enhancedproductgallery>
+    </blocks>
+  </global>
+</config>
