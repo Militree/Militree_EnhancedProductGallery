@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <config>
   <modules>
-    <Militree_SliderSwatches>
+    <Militree_EnhancedProductGallery>
       <active>true</active>
       <codePool>community</codePool>
-    </Militree_SliderSwatches>
+    </Militree_EnhancedProductGallery>
   </modules>
 </config>

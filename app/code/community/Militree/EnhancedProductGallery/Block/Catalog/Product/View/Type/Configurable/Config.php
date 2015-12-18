@@ -1,6 +1,6 @@
 <?php
 
-class Militree_SliderSwatches_Block_Catalog_Product_View_Type_Configurable_Config extends Mage_Catalog_Block_Product_View_Type_Configurable
+class Militree_EnhancedProductGallery_Block_Catalog_Product_View_Type_Configurable_Config extends Mage_Catalog_Block_Product_View_Type_Configurable
 {
     public function getJsonImageConfig()
     {
