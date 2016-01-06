@@ -25,6 +25,7 @@
     <ul class="slides product-image-gallery">
         <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
             <?php if ($this->isGalleryImageVisible($_image)): ?>
+              <?php $imageSize = getimagesize($_image->getUrl()); ?>
                 <li>
                     <img id="image-<?php echo $i; ?>"
                          class="gallery-image lazyload"
@@ -36,7 +37,8 @@
                     <?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->setQuality(80)->resize(1400); ?> 1400w
                          "
                          data-sizes="auto"
-                         data-zoom-image="<?php echo  $this->getGalleryImageUrl($_image); ?>" />
+                         data-image-size="<?php echo ($imageSize[0] * $imageSize[1]) ?>"
+                         data-zoom-image="<?php echo $this->getGalleryImageUrl($_image); ?>" />
                  </li>
             <?php endif; ?>
         <?php $i++; endforeach; ?>
