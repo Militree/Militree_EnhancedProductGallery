@@ -243,7 +243,7 @@
       if (!ElevateZoom.currentLoc) {
         ElevateZoom.currentLoc = ProductMediaSlider.calcCenterPosition(ElevateZoom, image);
       }
-      
+
       ElevateZoom.currentLoc.clientX += deltaX * ProductMediaSlider.STEP_SIZE;
       ElevateZoom.currentLoc.clientY += deltaY * ProductMediaSlider.STEP_SIZE;
       ElevateZoom.currentLoc.pageX += deltaX * ProductMediaSlider.STEP_SIZE;
