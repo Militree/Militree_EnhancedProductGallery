@@ -43,6 +43,8 @@
           ProductMediaSlider.createZoom($('.flex-active-slide img'));
         },
       });
+      ProductMediaSlider.destroyZoom();
+      ProductMediaSlider.createZoom($('.flex-active-slide img'));
     },
 
     /**
@@ -141,12 +143,11 @@
      * @return {Boolean}
      */
     isLargeImage: function(image) {
-      if(image.length !== 1){
-        return;
-      }
-      var widthDiff  = image[0].naturalWidth - image.width(); 
-      var heightDiff = image[0].naturalHeight - image.height(); 
-      return (widthDiff >= 0) || (heightDiff >= 0);
+      var img = new Image();
+      img.src = image.attr('src');
+      var renderedSize = img.width * img.height;
+      var originalSize = image.attr('data-image-size');
+      return renderedSize < originalSize;
     },
 
     /**
