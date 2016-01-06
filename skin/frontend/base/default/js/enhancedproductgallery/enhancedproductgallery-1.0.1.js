@@ -126,7 +126,7 @@
           return;
         }
         image.elevateZoom();
-        ProductMediaSlider.bindKeyboardZoom(image);
+        ProductMediaSlider.bindKeyboardZoom();
     },
 
     /**
@@ -146,7 +146,7 @@
       var img = new Image();
       img.src = image.attr('src');
       var renderedSize = img.width * img.height;
-      var originalSize = image.attr('data-image-size');
+      var originalSize = image.data('image-size');
       return renderedSize < originalSize;
     },
 
@@ -155,10 +155,10 @@
      * it and turn it off when keyboard zooming.
      * @param  {jQuery Object} image image with felxslider functionality
      */
-    bindKeyboardZoom: function(image) {
+    bindKeyboardZoom: function() {
       $('#flexslider').on("keydown", function(e) {
         if (e.keyCode == ProductMediaSlider.KEY_ENTER && ProductMediaSlider.keyboardZoomBound === false) {
-          ProductMediaSlider.keyboardZoom(e, image);
+          ProductMediaSlider.keyboardZoom(e, $('.flex-active-slide img'));
         }
       });
     },
