@@ -10,5 +10,4 @@ app/etc/modules/Militree_EnhancedProductGallery.xml
 
 # skin
 skin/frontend/base/default/css/enhancedproductgallery
-skin/frontend/base/default/images/enhancedproductgallery
 skin/frontend/base/default/js/enhancedproductgallery
