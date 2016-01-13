@@ -19,12 +19,29 @@
 <?php
     $_product = $this->getProduct();
     $_helper = $this->helper('catalog/output');
+
+    $_images = array();
+
+    $_mainImageUrl = $this->helper('catalog/image')->init($_product, 'image')->keepFrame(false)->constrainOnly(true);
+    $_images['main'] = new Varien_Object([
+        'gallery_image_url' => $_mainImageUrl,
+        'is_gallery_image_visible' => true,
+        'file' => $_product->getImage(),
+        'url' => $_mainImageUrl,
+    ]);
+
+    foreach ($this->getGalleryImages() as $_image) {
+        // This will index them starting at 0.
+        $_image->setIsGalleryImageVisible($this->isGalleryImageVisible($_image));
+        $_image->setGalleryImageUrl($this->getGalleryImageUrl($_image));
+        $_images[] = $_image;
+    }
 ?>
 
 <div id="flexslider" class="flexslider" tabindex="0">
     <ul class="slides product-image-gallery">
-        <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
-            <?php if ($this->isGalleryImageVisible($_image)): ?>
+        <?php foreach ($_images as $i => $_image): ?>
+            <?php if ($_image->getIsGalleryImageVisible()): ?>
               <?php $imageSize = getimagesize($_image->getUrl()); ?>
                 <li>
                     <img id="image-<?php echo $i; ?>"
@@ -38,10 +55,10 @@
                          "
                          data-sizes="auto"
                          data-image-size="<?php echo ($imageSize[0] * $imageSize[1]) ?>"
-                         data-zoom-image="<?php echo $this->getGalleryImageUrl($_image); ?>" />
+                         data-zoom-image="<?php echo $_image->getGalleryImageUrl(); ?>" />
                  </li>
             <?php endif; ?>
-        <?php $i++; endforeach; ?>
+        <?php endforeach; ?>
     </ul>
 </div>
 
