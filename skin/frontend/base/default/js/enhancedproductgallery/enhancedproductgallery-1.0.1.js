@@ -110,6 +110,8 @@
      * @param  {jQuery object} image current image, for zoom to act on
      */
     createZoom: function(image) {
+        var zoomOptions = {}; // more options: https://github.com/elevateweb/elevatezoom/blob/master/jquery.elevatezoom.js#L1735
+
         if(
             // Don't use zoom on devices where touch has been used
             PointerManager.getPointer() == PointerManager.TOUCH_POINTER_TYPE
@@ -119,13 +121,21 @@
             return; // zoom not enabled
         }
 
+        if (Modernizr.mq("screen and (max-width:" + bp.large + "px)")) {
+          zoomOptions["zoomWindowHeight"] = 275;
+          zoomOptions["zoomWindowWidth"] = 275;
+        } else {
+          zoomOptions["zoomWindowHeight"] = 430;
+          zoomOptions["zoomWindowWidth"] = 430;
+        }
+
         if (ProductMediaSlider.isLargeImage(image)) {
           image.parents('.product-image').addClass('zoom-available');
         } else {
           image.parents('.product-image').removeClass('zoom-available');
           return;
         }
-        image.elevateZoom();
+        image.elevateZoom(zoomOptions);
         ProductMediaSlider.bindKeyboardZoom();
     },
 
