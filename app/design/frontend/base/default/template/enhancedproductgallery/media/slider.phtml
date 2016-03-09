@@ -10,7 +10,7 @@
 /**
  * Product media data template
  *
- * @see Mage_Catalog_Block_Product_View_Media
+ * @var Mage_Catalog_Block_Product_View_Media $this
  */
 
 /* @parent_refrence "product.info" */
@@ -27,7 +27,6 @@
         'gallery_image_url' => $_mainImageUrl,
         'is_gallery_image_visible' => true,
         'file' => $_product->getImage(),
-        'url' => $_mainImageUrl,
     ]);
 
     foreach ($this->getGalleryImages() as $_image) {
@@ -42,19 +41,20 @@
     <ul class="slides product-image-gallery">
         <?php foreach ($_images as $i => $_image): ?>
             <?php if ($_image->getIsGalleryImageVisible()): ?>
-              <?php $imageSize = getimagesize($_image->getUrl()); ?>
+                <?php /** @var Mage_Catalog_Helper_Image $helperImage */ ?>
+                <?php $helperImage = $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true); ?>
                 <li>
                     <img id="image-<?php echo $i; ?>"
                          class="gallery-image lazyload"
-                         src="<?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->setQuality(16)->resize(720); ?>"
+                         src="<?php echo $helperImage->setQuality(16)->resize(720); ?>"
                          data-srcset="
-                    <?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->setQuality(80)->resize(320); ?> 320w,
-                    <?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->setQuality(80)->resize(720); ?> 720w,
-                    <?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->setQuality(80)->resize(920); ?> 920w,
-                    <?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->keepFrame(false)->constrainOnly(true)->setQuality(80)->resize(1400); ?> 1400w
+                            <?php echo $helperImage->setQuality(80)->resize(320); ?> 320w,
+                            <?php echo $helperImage->setQuality(80)->resize(720); ?> 720w,
+                            <?php echo $helperImage->setQuality(80)->resize(920); ?> 920w,
+                            <?php echo $helperImage->setQuality(80)->resize(1400); ?> 1400w
                          "
                          data-sizes="auto"
-                         data-image-size="<?php echo ($imageSize[0] * $imageSize[1]) ?>"
+                         data-image-size="<?php echo ($helperImage->getOriginalWidth() * $helperImage->getOriginalHeight()) ?>"
                          data-zoom-image="<?php echo $_image->getGalleryImageUrl(); ?>" />
                  </li>
             <?php endif; ?>
