@@ -30,10 +30,12 @@
     ]);
 
     foreach ($this->getGalleryImages() as $_image) {
-        // This will index them starting at 0.
-        $_image->setIsGalleryImageVisible($this->isGalleryImageVisible($_image));
-        $_image->setGalleryImageUrl($this->getGalleryImageUrl($_image));
-        $_images[] = $_image;
+        if ($_image->getFile() != $_product->getImage()) {
+            // This will index them starting at 0.
+            $_image->setIsGalleryImageVisible($this->isGalleryImageVisible($_image));
+            $_image->setGalleryImageUrl($this->getGalleryImageUrl($_image));
+            $_images[] = $_image;
+        }
     }
 ?>
 
